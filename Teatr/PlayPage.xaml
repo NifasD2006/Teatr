@@ -1,0 +1,122 @@
+﻿<Page x:Class="Teatr.PlayPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Teatr"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PlayPage" FontFamily="Segoe UI" Loaded="Page_Loaded" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30" ></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Поиск:" FontSize="22" Margin="5" ></TextBlock>
+                <TextBox Width="315" Height="30"  Margin="5"  FontSize="22" TextChanged="TextBoxSearch_TextChanged" Name="TextBoxSearch" ></TextBox>
+                <TextBlock Text="Жанр:" FontSize="22" Margin="5" ></TextBlock>
+                <ComboBox FontSize="15" Width="180" Height="40" SelectionChanged="WendorComboBox_SelectionChanged" Name="WendorComboBox" >
+                    <TextBlock Height="30" Margin="5" Width="150" FontSize="22" > Любой</TextBlock>
+                    <TextBlock Height="30" Margin="5" Width="150" FontSize="22" > Комедия</TextBlock>
+                    <TextBlock Height="30" Margin="5" Width="150" FontSize="22" > Драма</TextBlock>
+                    <TextBlock Height="30" Margin="5" Width="150" FontSize="22" > Милодрама</TextBlock>
+                    <TextBlock Height="30" Margin="5" Width="150" FontSize="22" > Мюзикл</TextBlock>
+                    <TextBlock Height="30" Margin="5" Width="150" FontSize="22" > Трагедия</TextBlock>
+                    <TextBlock Height="30" Margin="5" Width="150" FontSize="22" > Опера</TextBlock>
+                    <TextBlock Height="30" Margin="5" Width="150" FontSize="22" > Сатира</TextBlock>
+                    <TextBlock Height="30" Margin="5" Width="150" FontSize="22" > Феерия</TextBlock>
+                    <TextBlock Height="30" Margin="5" Width="150" FontSize="22" > Сказка</TextBlock>
+                    <TextBlock Height="30" Margin="5" Width="150" FontSize="22" > Экшен</TextBlock>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" >
+
+                <StackPanel Orientation="Vertical" Margin="5">
+                    <TextBlock Text="Сортировка по рейтингу" FontSize="22"></TextBlock>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="5">
+                        <RadioButton Content="По возрастанию" GroupName="Sort" Width="180" FontSize="20" x:Name="RButtonUP" Checked="RButtonUP_Checked"/>
+                        <RadioButton Content="По убыванию" GroupName="Sort" Width="180" FontSize="20" x:Name="RButtonDown" Checked="RButtonDown_Checked"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <Button Width="35" Margin="80,0,15,0" Click="RefrashBtn_Click" Name="RefrashBtn">
+                    <Image Source="res\ref4.png" ></Image>
+                </Button>
+                <Button Margin="0,0,0,0" Width="190" Name="AddBtn" Click="AddBtn_Click" >Добавить</Button>
+
+            </StackPanel>
+
+
+        </StackPanel>
+
+
+        <Grid Grid.Row="1" >
+            <ListView Name="PlayListView" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="500"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Image Width="300" MaxHeight="300" Grid.RowSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="200,5,40,5" Stretch="Uniform">
+                                <Image.Source>
+                                    <Binding Path="PlayImage">
+                                        <Binding.TargetNullValue>
+                                            <ImageSource>
+                                                res\picther.png
+                                            </ImageSource>
+                                        </Binding.TargetNullValue>
+                                    </Binding>
+                                </Image.Source>
+                            </Image>
+
+                            <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5"  VerticalAlignment="Center">
+                                <TextBlock Text="{Binding PlayName, StringFormat=Выступление: {0}}"  FontSize="25" ></TextBlock>
+                                <TextBlock Text="{Binding PlayAuthor, StringFormat=Автор: {0}}"  FontSize="25" ></TextBlock>
+                                <TextBlock Text="{Binding Genre.GenreName, StringFormat= Жанр: {0}}" FontSize="25" ></TextBlock>
+                                <TextBlock Text="{Binding Rating.RatingName, StringFormat= Рейтинг: {0}}" FontSize="25" ></TextBlock>
+                                <TextBlock Text="{Binding PlayDuration, StringFormat= Длительность: {0} мин.}" FontSize="25" ></TextBlock>
+                                <TextBlock Text="{Binding PlayCountry, StringFormat= Страна: {0}}" FontSize="25" ></TextBlock>
+                                <StackPanel Orientation="Horizontal"  >
+                                    <Button HorizontalAlignment="Left" Margin="0,5,5,0" Width="200" Name="EditBtn" Click="EditBtn_Click"    >Редактировать</Button>
+                                    <Button HorizontalAlignment="Left" Margin="0,5,5,0" Width="200" Name="DeleteBtn" Click="DeleteBtn_Click" >Удалить</Button>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2" Orientation="Vertical" Margin="5"  VerticalAlignment="Center">
+                                <TextBlock Text="Ближайшее выступление:" FontSize="25" ></TextBlock>
+                                <TextBlock Text="{Binding NearestDataFormatted, StringFormat='{}{0:dd.MM.yyyy}'}" FontSize="25"/>
+                                <TextBlock Text="{Binding PushkinCardString }" Foreground="Green" FontSize="25" ></TextBlock>
+                                
+                                
+                                
+                            </StackPanel>
+                            
+                            
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+
+        <StackPanel  Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,7,0,0" >
+            <TextBlock Text="Текующие кол-во спектаклей: " FontSize="18" ></TextBlock>
+            <TextBlock Name="CountTBlock" FontSize="18"  ></TextBlock>
+            <TextBlock Text="/" FontSize="18"  ></TextBlock>
+            <TextBlock Name="MaxCountTBlock" FontSize="18"   ></TextBlock>
+
+        </StackPanel>
+
+
+    </Grid>
+</Page>

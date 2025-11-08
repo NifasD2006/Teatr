@@ -1,0 +1,621 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище TeatrDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="GenderID" />
+          </Key>
+          <Property Name="GenderID" Type="int" Nullable="false" />
+          <Property Name="GenderName" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Genre">
+          <Key>
+            <PropertyRef Name="GenreID" />
+          </Key>
+          <Property Name="GenreID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GenreName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="GanreDescription" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Play">
+          <Key>
+            <PropertyRef Name="PlayID" />
+          </Key>
+          <Property Name="PlayID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlayName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="PlayGanreID" Type="int" Nullable="false" />
+          <Property Name="PlayRatingID" Type="int" Nullable="false" />
+          <Property Name="PlayAuthor" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="PlayImage" Type="varchar(max)" />
+          <Property Name="PlayPushkinCard" Type="bit" Nullable="false" />
+          <Property Name="PlayDuration" Type="int" Nullable="false" />
+          <Property Name="PlayCountry" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Posts">
+          <Key>
+            <PropertyRef Name="PostID" />
+          </Key>
+          <Property Name="PostID" Type="int" Nullable="false" />
+          <Property Name="PostName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PostSalary" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="PostTimeForWork" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="RatingID" />
+          </Key>
+          <Property Name="RatingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RatingName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="RatingDescription" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Repertoire">
+          <Key>
+            <PropertyRef Name="RepertoireID" />
+          </Key>
+          <Property Name="RepertoireID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RepertoirePlayID" Type="int" Nullable="false" />
+          <Property Name="RepertoireData" Type="date" />
+          <Property Name="RepertoireTime" Type="time" Precision="7" />
+          <Property Name="RepertoireCost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tour">
+          <Key>
+            <PropertyRef Name="TourID" />
+          </Key>
+          <Property Name="TourID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TourName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="TourDateStart" Type="date" Nullable="false" />
+          <Property Name="TourDateEnd" Type="date" Nullable="false" />
+          <Property Name="TourPlace" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="TourPlayID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Trupe">
+          <Key>
+            <PropertyRef Name="TrupeID" />
+          </Key>
+          <Property Name="TrupeID" Type="int" Nullable="false" />
+          <Property Name="TrupeWorkerID" Type="int" Nullable="false" />
+          <Property Name="TrupePlayID" Type="int" Nullable="false" />
+          <Property Name="TrupeRole" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="WorkerID" />
+          </Key>
+          <Property Name="WorkerID" Type="int" Nullable="false" />
+          <Property Name="WorkerName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="WorkerLastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="WorkerPatronic" Type="varchar" MaxLength="50" />
+          <Property Name="WorkerBirthDay" Type="date" Nullable="false" />
+          <Property Name="WorkerHiring" Type="date" Nullable="false" />
+          <Property Name="WorkerExp" Type="date" Nullable="false" />
+          <Property Name="WorkerGenderID" Type="int" Nullable="false" />
+          <Property Name="WorkerPostID" Type="int" Nullable="false" />
+          <Property Name="WorkerAddress" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="WorkerPhone" Type="varchar" MaxLength="26" />
+        </EntityType>
+        <Association Name="FK_Play_Genre">
+          <End Role="Genre" Type="Self.Genre" Multiplicity="1" />
+          <End Role="Play" Type="Self.Play" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genre">
+              <PropertyRef Name="GenreID" />
+            </Principal>
+            <Dependent Role="Play">
+              <PropertyRef Name="PlayGanreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Play_Rating">
+          <End Role="Rating" Type="Self.Rating" Multiplicity="1" />
+          <End Role="Play" Type="Self.Play" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rating">
+              <PropertyRef Name="RatingID" />
+            </Principal>
+            <Dependent Role="Play">
+              <PropertyRef Name="PlayRatingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Play_Repertoire">
+          <End Role="Play" Type="Self.Play" Multiplicity="1" />
+          <End Role="Repertoire" Type="Self.Repertoire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Play">
+              <PropertyRef Name="PlayID" />
+            </Principal>
+            <Dependent Role="Repertoire">
+              <PropertyRef Name="RepertoirePlayID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Play_Tour">
+          <End Role="Play" Type="Self.Play" Multiplicity="1" />
+          <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Play">
+              <PropertyRef Name="PlayID" />
+            </Principal>
+            <Dependent Role="Tour">
+              <PropertyRef Name="TourPlayID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Play_Trupe">
+          <End Role="Play" Type="Self.Play" Multiplicity="1" />
+          <End Role="Trupe" Type="Self.Trupe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Play">
+              <PropertyRef Name="PlayID" />
+            </Principal>
+            <Dependent Role="Trupe">
+              <PropertyRef Name="TrupePlayID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Worker_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="GenderID" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="WorkerGenderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Worker_Posts">
+          <End Role="Posts" Type="Self.Posts" Multiplicity="1" />
+          <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts">
+              <PropertyRef Name="PostID" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="WorkerPostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Worker_Trupe">
+          <End Role="Worker" Type="Self.Worker" Multiplicity="1" />
+          <End Role="Trupe" Type="Self.Trupe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="WorkerID" />
+            </Principal>
+            <Dependent Role="Trupe">
+              <PropertyRef Name="TrupeWorkerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище TeatrDBModelContainer">
+          <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Genre" EntityType="Self.Genre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Play" EntityType="Self.Play" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rating" EntityType="Self.Rating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Repertoire" EntityType="Self.Repertoire" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tour" EntityType="Self.Tour" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trupe" EntityType="Self.Trupe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Worker" EntityType="Self.Worker" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Play_Genre" Association="Self.FK_Play_Genre">
+            <End Role="Genre" EntitySet="Genre" />
+            <End Role="Play" EntitySet="Play" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Play_Rating" Association="Self.FK_Play_Rating">
+            <End Role="Rating" EntitySet="Rating" />
+            <End Role="Play" EntitySet="Play" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Play_Repertoire" Association="Self.FK_Play_Repertoire">
+            <End Role="Play" EntitySet="Play" />
+            <End Role="Repertoire" EntitySet="Repertoire" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Play_Tour" Association="Self.FK_Play_Tour">
+            <End Role="Play" EntitySet="Play" />
+            <End Role="Tour" EntitySet="Tour" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Play_Trupe" Association="Self.FK_Play_Trupe">
+            <End Role="Play" EntitySet="Play" />
+            <End Role="Trupe" EntitySet="Trupe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Worker_Gender" Association="Self.FK_Worker_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="Worker" EntitySet="Worker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Worker_Posts" Association="Self.FK_Worker_Posts">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="Worker" EntitySet="Worker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Worker_Trupe" Association="Self.FK_Worker_Trupe">
+            <End Role="Worker" EntitySet="Worker" />
+            <End Role="Trupe" EntitySet="Trupe" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TeatrDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="GenderID" />
+          </Key>
+          <Property Name="GenderID" Type="Int32" Nullable="false" />
+          <Property Name="GenderName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Worker" Relationship="Self.FK_Worker_Gender" FromRole="Gender" ToRole="Worker" />
+        </EntityType>
+        <EntityType Name="Genre">
+          <Key>
+            <PropertyRef Name="GenreID" />
+          </Key>
+          <Property Name="GenreID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GenreName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GanreDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Play" Relationship="Self.FK_Play_Genre" FromRole="Genre" ToRole="Play" />
+        </EntityType>
+        <EntityType Name="Play">
+          <Key>
+            <PropertyRef Name="PlayID" />
+          </Key>
+          <Property Name="PlayID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlayName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PlayGanreID" Type="Int32" Nullable="false" />
+          <Property Name="PlayRatingID" Type="Int32" Nullable="false" />
+          <Property Name="PlayAuthor" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PlayImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PlayPushkinCard" Type="Boolean" Nullable="false" />
+          <Property Name="PlayDuration" Type="Int32" Nullable="false" />
+          <Property Name="PlayCountry" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Genre" Relationship="Self.FK_Play_Genre" FromRole="Play" ToRole="Genre" />
+          <NavigationProperty Name="Rating" Relationship="Self.FK_Play_Rating" FromRole="Play" ToRole="Rating" />
+          <NavigationProperty Name="Repertoire" Relationship="Self.FK_Play_Repertoire" FromRole="Play" ToRole="Repertoire" />
+          <NavigationProperty Name="Tour" Relationship="Self.FK_Play_Tour" FromRole="Play" ToRole="Tour" />
+          <NavigationProperty Name="Trupe" Relationship="Self.FK_Play_Trupe" FromRole="Play" ToRole="Trupe" />
+        </EntityType>
+        <EntityType Name="Posts">
+          <Key>
+            <PropertyRef Name="PostID" />
+          </Key>
+          <Property Name="PostID" Type="Int32" Nullable="false" />
+          <Property Name="PostName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PostSalary" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="PostTimeForWork" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Worker" Relationship="Self.FK_Worker_Posts" FromRole="Posts" ToRole="Worker" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="RatingID" />
+          </Key>
+          <Property Name="RatingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RatingName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RatingDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Play" Relationship="Self.FK_Play_Rating" FromRole="Rating" ToRole="Play" />
+        </EntityType>
+        <EntityType Name="Repertoire">
+          <Key>
+            <PropertyRef Name="RepertoireID" />
+          </Key>
+          <Property Name="RepertoireID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RepertoirePlayID" Type="Int32" Nullable="false" />
+          <Property Name="RepertoireData" Type="DateTime" Precision="0" />
+          <Property Name="RepertoireTime" Type="Time" Precision="7" />
+          <Property Name="RepertoireCost" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Play" Relationship="Self.FK_Play_Repertoire" FromRole="Repertoire" ToRole="Play" />
+        </EntityType>
+        <EntityType Name="Tour">
+          <Key>
+            <PropertyRef Name="TourID" />
+          </Key>
+          <Property Name="TourID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TourName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TourDateStart" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TourDateEnd" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TourPlace" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TourPlayID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Play" Relationship="Self.FK_Play_Tour" FromRole="Tour" ToRole="Play" />
+        </EntityType>
+        <EntityType Name="Trupe">
+          <Key>
+            <PropertyRef Name="TrupeID" />
+          </Key>
+          <Property Name="TrupeID" Type="Int32" Nullable="false" />
+          <Property Name="TrupeWorkerID" Type="Int32" Nullable="false" />
+          <Property Name="TrupePlayID" Type="Int32" Nullable="false" />
+          <Property Name="TrupeRole" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Play" Relationship="Self.FK_Play_Trupe" FromRole="Trupe" ToRole="Play" />
+          <NavigationProperty Name="Worker" Relationship="Self.FK_Worker_Trupe" FromRole="Trupe" ToRole="Worker" />
+        </EntityType>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="WorkerID" />
+          </Key>
+          <Property Name="WorkerID" Type="Int32" Nullable="false" />
+          <Property Name="WorkerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WorkerLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WorkerPatronic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WorkerBirthDay" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="WorkerHiring" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="WorkerExp" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="WorkerGenderID" Type="Int32" Nullable="false" />
+          <Property Name="WorkerPostID" Type="Int32" Nullable="false" />
+          <Property Name="WorkerAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WorkerPhone" Type="String" MaxLength="26" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Gender" Relationship="Self.FK_Worker_Gender" FromRole="Worker" ToRole="Gender" />
+          <NavigationProperty Name="Posts" Relationship="Self.FK_Worker_Posts" FromRole="Worker" ToRole="Posts" />
+          <NavigationProperty Name="Trupe" Relationship="Self.FK_Worker_Trupe" FromRole="Worker" ToRole="Trupe" />
+        </EntityType>
+        <Association Name="FK_Worker_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="GenderID" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="WorkerGenderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Play_Genre">
+          <End Role="Genre" Type="Self.Genre" Multiplicity="1" />
+          <End Role="Play" Type="Self.Play" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genre">
+              <PropertyRef Name="GenreID" />
+            </Principal>
+            <Dependent Role="Play">
+              <PropertyRef Name="PlayGanreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Play_Rating">
+          <End Role="Rating" Type="Self.Rating" Multiplicity="1" />
+          <End Role="Play" Type="Self.Play" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rating">
+              <PropertyRef Name="RatingID" />
+            </Principal>
+            <Dependent Role="Play">
+              <PropertyRef Name="PlayRatingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Play_Repertoire">
+          <End Role="Play" Type="Self.Play" Multiplicity="1" />
+          <End Role="Repertoire" Type="Self.Repertoire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Play">
+              <PropertyRef Name="PlayID" />
+            </Principal>
+            <Dependent Role="Repertoire">
+              <PropertyRef Name="RepertoirePlayID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Play_Tour">
+          <End Role="Play" Type="Self.Play" Multiplicity="1" />
+          <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Play">
+              <PropertyRef Name="PlayID" />
+            </Principal>
+            <Dependent Role="Tour">
+              <PropertyRef Name="TourPlayID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Play_Trupe">
+          <End Role="Play" Type="Self.Play" Multiplicity="1" />
+          <End Role="Trupe" Type="Self.Trupe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Play">
+              <PropertyRef Name="PlayID" />
+            </Principal>
+            <Dependent Role="Trupe">
+              <PropertyRef Name="TrupePlayID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Worker_Posts">
+          <End Role="Posts" Type="Self.Posts" Multiplicity="1" />
+          <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts">
+              <PropertyRef Name="PostID" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="WorkerPostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Worker_Trupe">
+          <End Role="Worker" Type="Self.Worker" Multiplicity="1" />
+          <End Role="Trupe" Type="Self.Trupe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="WorkerID" />
+            </Principal>
+            <Dependent Role="Trupe">
+              <PropertyRef Name="TrupeWorkerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TeatrDBEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Gender" EntityType="Self.Gender" />
+          <EntitySet Name="Genre" EntityType="Self.Genre" />
+          <EntitySet Name="Play" EntityType="Self.Play" />
+          <EntitySet Name="Posts" EntityType="Self.Posts" />
+          <EntitySet Name="Rating" EntityType="Self.Rating" />
+          <EntitySet Name="Repertoire" EntityType="Self.Repertoire" />
+          <EntitySet Name="Tour" EntityType="Self.Tour" />
+          <EntitySet Name="Trupe" EntityType="Self.Trupe" />
+          <EntitySet Name="Worker" EntityType="Self.Worker" />
+          <AssociationSet Name="FK_Worker_Gender" Association="Self.FK_Worker_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="Worker" EntitySet="Worker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Play_Genre" Association="Self.FK_Play_Genre">
+            <End Role="Genre" EntitySet="Genre" />
+            <End Role="Play" EntitySet="Play" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Play_Rating" Association="Self.FK_Play_Rating">
+            <End Role="Rating" EntitySet="Rating" />
+            <End Role="Play" EntitySet="Play" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Play_Repertoire" Association="Self.FK_Play_Repertoire">
+            <End Role="Play" EntitySet="Play" />
+            <End Role="Repertoire" EntitySet="Repertoire" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Play_Tour" Association="Self.FK_Play_Tour">
+            <End Role="Play" EntitySet="Play" />
+            <End Role="Tour" EntitySet="Tour" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Play_Trupe" Association="Self.FK_Play_Trupe">
+            <End Role="Play" EntitySet="Play" />
+            <End Role="Trupe" EntitySet="Trupe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Worker_Posts" Association="Self.FK_Worker_Posts">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="Worker" EntitySet="Worker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Worker_Trupe" Association="Self.FK_Worker_Trupe">
+            <End Role="Worker" EntitySet="Worker" />
+            <End Role="Trupe" EntitySet="Trupe" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TeatrDBModelContainer" CdmEntityContainer="TeatrDBEntities2">
+          <EntitySetMapping Name="Gender">
+            <EntityTypeMapping TypeName="TeatrDBModel.Gender">
+              <MappingFragment StoreEntitySet="Gender">
+                <ScalarProperty Name="GenderID" ColumnName="GenderID" />
+                <ScalarProperty Name="GenderName" ColumnName="GenderName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genre">
+            <EntityTypeMapping TypeName="TeatrDBModel.Genre">
+              <MappingFragment StoreEntitySet="Genre">
+                <ScalarProperty Name="GenreID" ColumnName="GenreID" />
+                <ScalarProperty Name="GenreName" ColumnName="GenreName" />
+                <ScalarProperty Name="GanreDescription" ColumnName="GanreDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Play">
+            <EntityTypeMapping TypeName="TeatrDBModel.Play">
+              <MappingFragment StoreEntitySet="Play">
+                <ScalarProperty Name="PlayID" ColumnName="PlayID" />
+                <ScalarProperty Name="PlayName" ColumnName="PlayName" />
+                <ScalarProperty Name="PlayGanreID" ColumnName="PlayGanreID" />
+                <ScalarProperty Name="PlayRatingID" ColumnName="PlayRatingID" />
+                <ScalarProperty Name="PlayAuthor" ColumnName="PlayAuthor" />
+                <ScalarProperty Name="PlayImage" ColumnName="PlayImage" />
+                <ScalarProperty Name="PlayPushkinCard" ColumnName="PlayPushkinCard" />
+                <ScalarProperty Name="PlayDuration" ColumnName="PlayDuration" />
+                <ScalarProperty Name="PlayCountry" ColumnName="PlayCountry" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Posts">
+            <EntityTypeMapping TypeName="TeatrDBModel.Posts">
+              <MappingFragment StoreEntitySet="Posts">
+                <ScalarProperty Name="PostID" ColumnName="PostID" />
+                <ScalarProperty Name="PostName" ColumnName="PostName" />
+                <ScalarProperty Name="PostSalary" ColumnName="PostSalary" />
+                <ScalarProperty Name="PostTimeForWork" ColumnName="PostTimeForWork" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rating">
+            <EntityTypeMapping TypeName="TeatrDBModel.Rating">
+              <MappingFragment StoreEntitySet="Rating">
+                <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+                <ScalarProperty Name="RatingName" ColumnName="RatingName" />
+                <ScalarProperty Name="RatingDescription" ColumnName="RatingDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Repertoire">
+            <EntityTypeMapping TypeName="TeatrDBModel.Repertoire">
+              <MappingFragment StoreEntitySet="Repertoire">
+                <ScalarProperty Name="RepertoireID" ColumnName="RepertoireID" />
+                <ScalarProperty Name="RepertoirePlayID" ColumnName="RepertoirePlayID" />
+                <ScalarProperty Name="RepertoireData" ColumnName="RepertoireData" />
+                <ScalarProperty Name="RepertoireTime" ColumnName="RepertoireTime" />
+                <ScalarProperty Name="RepertoireCost" ColumnName="RepertoireCost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tour">
+            <EntityTypeMapping TypeName="TeatrDBModel.Tour">
+              <MappingFragment StoreEntitySet="Tour">
+                <ScalarProperty Name="TourID" ColumnName="TourID" />
+                <ScalarProperty Name="TourName" ColumnName="TourName" />
+                <ScalarProperty Name="TourDateStart" ColumnName="TourDateStart" />
+                <ScalarProperty Name="TourDateEnd" ColumnName="TourDateEnd" />
+                <ScalarProperty Name="TourPlace" ColumnName="TourPlace" />
+                <ScalarProperty Name="TourPlayID" ColumnName="TourPlayID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trupe">
+            <EntityTypeMapping TypeName="TeatrDBModel.Trupe">
+              <MappingFragment StoreEntitySet="Trupe">
+                <ScalarProperty Name="TrupeID" ColumnName="TrupeID" />
+                <ScalarProperty Name="TrupeWorkerID" ColumnName="TrupeWorkerID" />
+                <ScalarProperty Name="TrupePlayID" ColumnName="TrupePlayID" />
+                <ScalarProperty Name="TrupeRole" ColumnName="TrupeRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Worker">
+            <EntityTypeMapping TypeName="TeatrDBModel.Worker">
+              <MappingFragment StoreEntitySet="Worker">
+                <ScalarProperty Name="WorkerID" ColumnName="WorkerID" />
+                <ScalarProperty Name="WorkerName" ColumnName="WorkerName" />
+                <ScalarProperty Name="WorkerLastName" ColumnName="WorkerLastName" />
+                <ScalarProperty Name="WorkerPatronic" ColumnName="WorkerPatronic" />
+                <ScalarProperty Name="WorkerBirthDay" ColumnName="WorkerBirthDay" />
+                <ScalarProperty Name="WorkerHiring" ColumnName="WorkerHiring" />
+                <ScalarProperty Name="WorkerExp" ColumnName="WorkerExp" />
+                <ScalarProperty Name="WorkerGenderID" ColumnName="WorkerGenderID" />
+                <ScalarProperty Name="WorkerPostID" ColumnName="WorkerPostID" />
+                <ScalarProperty Name="WorkerAddress" ColumnName="WorkerAddress" />
+                <ScalarProperty Name="WorkerPhone" ColumnName="WorkerPhone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

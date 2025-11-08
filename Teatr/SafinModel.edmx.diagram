@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4b7c96483ce64509940f0a9325267c61" Name="Diagram1">
+        <EntityTypeShape EntityType="TeatrDBModel.Gender" Width="1.5" PointX="3.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TeatrDBModel.Genre" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TeatrDBModel.Play" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TeatrDBModel.Posts" Width="1.5" PointX="3.75" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TeatrDBModel.Rating" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TeatrDBModel.Repertoire" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TeatrDBModel.Tour" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TeatrDBModel.Trupe" Width="1.5" PointX="8.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TeatrDBModel.Worker" Width="1.5" PointX="6" PointY="10.5" IsExpanded="true" />
+        <AssociationConnector Association="TeatrDBModel.FK_Worker_Gender" ManuallyRouted="false" />
+        <AssociationConnector Association="TeatrDBModel.FK_Play_Genre" ManuallyRouted="false" />
+        <AssociationConnector Association="TeatrDBModel.FK_Play_Rating" ManuallyRouted="false" />
+        <AssociationConnector Association="TeatrDBModel.FK_Play_Repertoire" ManuallyRouted="false" />
+        <AssociationConnector Association="TeatrDBModel.FK_Play_Tour" ManuallyRouted="false" />
+        <AssociationConnector Association="TeatrDBModel.FK_Play_Trupe" ManuallyRouted="false" />
+        <AssociationConnector Association="TeatrDBModel.FK_Worker_Posts" ManuallyRouted="false" />
+        <AssociationConnector Association="TeatrDBModel.FK_Worker_Trupe" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
