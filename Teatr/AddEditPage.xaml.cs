@@ -62,7 +62,9 @@ namespace Teatr
                 {
                     try
                     {
-                        string defaultImagePath = @"D:\УАТ\4 Курс\Разработка программных модулей Тимашева\Курсовая\Teatr\Teatr\res\picther.png";
+                        string basePath = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName;
+                        string defaultImagePath = System.IO.Path.Combine(basePath, "res", "picther.png");
+
                         if (System.IO.File.Exists(defaultImagePath))
                         {
                             PosterPreview.Source = new BitmapImage(new Uri(defaultImagePath));
@@ -73,9 +75,6 @@ namespace Teatr
                         // Игнорируем ошибки загрузки заглушки
                     }
                 }
-
-
-
                 if (_currentDevice.PlayPushkinCard == true)
                 {
                     PushkinCardBox.IsChecked = true;
@@ -84,8 +83,6 @@ namespace Teatr
                 {
                     PushkinCardBox.IsChecked = false;
                 }
-
-
 
                 devid = _currentDevice.PlayID;
                 Manager.RepertiureFrame = RepertiureFrame;
@@ -179,7 +176,8 @@ namespace Teatr
         {
             // Путь к папке res
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
-            string resFolderPath = System.IO.Path.Combine(basePath, "res");
+            string projectPath = Directory.GetParent(basePath).Parent.Parent.FullName;
+            string resFolderPath = System.IO.Path.Combine(projectPath, "res");
 
             // Проверяем существование папки
             if (!System.IO.Directory.Exists(resFolderPath))

@@ -32,9 +32,7 @@
                     <TextBlock Height="30" Margin="5" Width="150" FontSize="22" > Экшен</TextBlock>
                 </ComboBox>
             </StackPanel>
-
             <StackPanel Orientation="Horizontal" >
-
                 <StackPanel Orientation="Vertical" Margin="5">
                     <TextBlock Text="Сортировка по рейтингу" FontSize="22"></TextBlock>
                     <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="5">
@@ -42,18 +40,12 @@
                         <RadioButton Content="По убыванию" GroupName="Sort" Width="180" FontSize="20" x:Name="RButtonDown" Checked="RButtonDown_Checked"/>
                     </StackPanel>
                 </StackPanel>
-
                 <Button Width="35" Margin="80,0,15,0" Click="RefrashBtn_Click" Name="RefrashBtn">
                     <Image Source="res\ref4.png" ></Image>
                 </Button>
                 <Button Margin="0,0,0,0" Width="190" Name="AddBtn" Click="AddBtn_Click" >Добавить</Button>
-
             </StackPanel>
-
-
         </StackPanel>
-
-
         <Grid Grid.Row="1" >
             <ListView Name="PlayListView" >
                 <ListView.ItemTemplate>
@@ -63,7 +55,6 @@
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition Width="500"></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
-
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -79,7 +70,6 @@
                                     </Binding>
                                 </Image.Source>
                             </Image>
-
                             <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5"  VerticalAlignment="Center">
                                 <TextBlock Text="{Binding PlayName, StringFormat=Выступление: {0}}"  FontSize="25" ></TextBlock>
                                 <TextBlock Text="{Binding PlayAuthor, StringFormat=Автор: {0}}"  FontSize="25" ></TextBlock>
@@ -92,31 +82,21 @@
                                     <Button HorizontalAlignment="Left" Margin="0,5,5,0" Width="200" Name="DeleteBtn" Click="DeleteBtn_Click" >Удалить</Button>
                                 </StackPanel>
                             </StackPanel>
-
                             <StackPanel Grid.Column="2" Orientation="Vertical" Margin="5"  VerticalAlignment="Center">
                                 <TextBlock Text="Ближайшее выступление:" FontSize="25" ></TextBlock>
                                 <TextBlock Text="{Binding NearestDataFormatted, StringFormat='{}{0:dd.MM.yyyy}'}" FontSize="25"/>
                                 <TextBlock Text="{Binding PushkinCardString }" Foreground="Green" FontSize="25" ></TextBlock>
-                                
-                                
-                                
                             </StackPanel>
-                            
-                            
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
-
         <StackPanel  Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,7,0,0" >
             <TextBlock Text="Текующие кол-во спектаклей: " FontSize="18" ></TextBlock>
             <TextBlock Name="CountTBlock" FontSize="18"  ></TextBlock>
             <TextBlock Text="/" FontSize="18"  ></TextBlock>
             <TextBlock Name="MaxCountTBlock" FontSize="18"   ></TextBlock>
-
         </StackPanel>
-
-
     </Grid>
 </Page>
