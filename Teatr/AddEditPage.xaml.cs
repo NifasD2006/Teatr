@@ -27,36 +27,38 @@ namespace Teatr
 
         public AddEditPage(Play SelectDevice)
         {
-
             InitializeComponent();
             Manager.RepertiureFrame = RepertiureFrame;
             if (SelectDevice != null)
             {
                 _currentDevice = SelectDevice;
-                if (_currentDevice.PlayID != 0) 
+                if (SelectDevice != null)
                 {
-                    GenreCombo.SelectedIndex = _currentDevice.PlayGanreID-1;
-                    RatingCB.SelectedIndex = _currentDevice.PlayRatingID-1;
-
-                    if (!string.IsNullOrEmpty(_currentDevice.PlayImage))
+                    _currentDevice = SelectDevice;
+                    if (_currentDevice.PlayID != 0)
                     {
-                        try
-                        {
-                            string basePath = @"D:\УАТ\4 Курс\Разработка программных модулей Тимашева\Курсовая\Teatr\Teatr\";
-                            string fullImagePath = System.IO.Path.Combine(basePath, _currentDevice.PlayImage);
+                        GenreCombo.SelectedIndex = _currentDevice.PlayGanreID - 1;
+                        RatingCB.SelectedIndex = _currentDevice.PlayRatingID - 1;
 
-                            if (System.IO.File.Exists(fullImagePath))
+                        if (!string.IsNullOrEmpty(_currentDevice.PlayImage))
+                        {
+                            try
                             {
-                                PosterPreview.Source = new BitmapImage(new Uri(fullImagePath));
-                                currentImagePath = fullImagePath;
+                                string basePath = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName;
+                                string fullImagePath = System.IO.Path.Combine(basePath, _currentDevice.PlayImage);
+
+                                if (System.IO.File.Exists(fullImagePath))
+                                {
+                                    PosterPreview.Source = new BitmapImage(new Uri(fullImagePath));
+                                    currentImagePath = fullImagePath;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show($"Ошибка загрузки изображения: {ex.Message}");
                             }
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Ошибка загрузки изображения: {ex.Message}");
-                        }
                     }
-
                 }
                 if (PosterPreview.Source == null)
                 {
